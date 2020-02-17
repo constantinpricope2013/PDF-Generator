@@ -1,7 +1,7 @@
 # Content
 file_name = 'result.pdf'
 document_title = 'Titlu documentului!'
-title = 'Titlu per pagina.'
+title = 'Titlu per pagina.  F'
 subtitle = 'Subtitlu'
 
 from reportlab.pdfgen import canvas
