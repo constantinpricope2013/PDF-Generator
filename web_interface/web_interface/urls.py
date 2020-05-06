@@ -21,5 +21,5 @@ from formular import views
 urlpatterns = [
     path('', views.index, name="temporary-homepage"),
     path('admin/', admin.site.urls),
-    path('formular', include('formular.urls')),
+    path('formular/', include('formular.urls')),
 ]
