@@ -1,6 +1,7 @@
 # ###################################
 # Help
 def drawMyRuler(pdf):
+    print("Inside drawMyRuler")
     pdf.drawString(100,810, 'x100')
     pdf.drawString(200,810, 'x200')
     pdf.drawString(300,810, 'x300')
@@ -19,11 +20,13 @@ def drawMyRuler(pdf):
 
 
 # Content
+print("Setting content")
 file_name = 'result.pdf'
 document_title = 'Titlu documentului!'
 title = 'Titlu per pagina.  Final'
 subtitle = 'Subtitlu'
 
+print("Preparing importing")
 from reportlab.pdfgen import canvas
 
 pdf = canvas.Canvas(file_name)
@@ -35,5 +38,5 @@ drawMyRuler(pdf)
 pdf.drawString(200, 200, title)
 
 
-
+print("Saving pdf..")
 pdf.save()
