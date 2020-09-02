@@ -16,10 +16,11 @@ Including another URLconf
 from django.conf.urls import include
 from django.contrib import admin
 from django.urls import path
-from formular import views
+from adeverinte import views
 
 urlpatterns = [
-    path('', views.index, name="temporary-homepage"),
+    path('', views.adeverinte_home, name="temporary-homepage"),
     path('admin/', admin.site.urls),
     path('formular/', include('formular.urls')),
+    path('adeverinte/', include('adeverinte.urls')),
 ]
