@@ -21,9 +21,10 @@ from django.conf.urls.static import static
 from django.urls import path
 from adeverinte import views
 from user import views as user_view
+from main_website import views as main_view
 
 urlpatterns = [
-    path('', views.adeverinte_home, name="temporary-homepage"),
+    path('', main_view.home, name="home"),
     path('register/',user_view.register, name='register'),
     path('profile/',user_view.profile, name='profile'),
     path('admin/', admin.site.urls),
@@ -31,6 +32,7 @@ urlpatterns = [
     path('login/',auth_views.LoginView.as_view(template_name='user/login.html'), name='login'),
     path('logout/',auth_views.LogoutView.as_view(template_name='user/logout.html'), name='logout'),
     path('adeverinte/', include('adeverinte.urls')),
+    path('about/', main_view.about, name='about'),
 ]
 
 if settings.DEBUG:

@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'main_website.apps.MainWebsiteConfig',
     'statistici.apps.StatisticiConfig',
     'user.apps.UserConfig',
     'formular.apps.FormularConfig',

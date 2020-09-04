@@ -1,0 +1,30 @@
+{% extends "main_website/base_statistici.html" %}
+{% block content %}
+{% if user.is_authenticated %}
+    {% for post in posts %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ post.data_publish|date:"F d, Y" }}</a>
+              <small class="text-muted">{{ post.time_publish|time:"G:i" }}</small>
+            </div>
+            <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
+            <p class="article-content">{{ post.content }}</p>
+          </div>
+        </article>
+    {% endfor %}
+{% else %}
+  <p>
+  &nbsp;&nbsp;&nbsp;&nbsp;În alegerea obiectivului acestui proiect am luat în considerare problemele care au fost în jurul meu și rezolvarea acestora cu ajutorul tehnologiei curente.In mod special mi a atras atentia departamentul de resurse umane care utilizează o grămadă de documente prin urmare și hârtie care nu este un aspect tocmai ecologic, în plus în afară de acest lucru distribuirea adeverințelor și documentelor necesare oricărui proces de resurse umane este un cost și un și un timp total neproductivă pentru orice angajat al departamentului de resurse umane timp care ar putea fi utilizat în celelalte procese de management al angajaților.
+  </p>
+
+  <p>
+  &nbsp;&nbsp;&nbsp;&nbsp;Totodată utilizatorul principal al acestui proiect sunt firmele/societăților comerciale cu un număr limitat de angajati care nu își pot permite un departament de resurse umane abilitat și prin urmare administrarea acestor documente si adeverinte ar fi un stes și un cost suplimentar ne necesar. Tocmai de aceea din contul administratorului este posibilă exportarea și generarea de documente word sau PDF pentru fiecare angajat al societății în cazul în care nu se dorește generarea de user și fiecare user să se logheze separat deși este posibil ca utilizatorul final să se logheze separat pentru a genera orice document necesar. Astăzi putem spune că avem o platformă care administrează atât generarea de documente cât și generarea de user pentru a avea acces la documentele aferente.
+  </p>
+
+  <p>
+  &nbsp;&nbsp;&nbsp;&nbsp;Problema identificată a fost crearea de documente aferente procesului de resurse umane în mod manual și timpul enorm de mare necesar în modificarea și distribuirea acestora atât pentru societățile mici ca și dimensiune cât și pentru societățile mari și care doresc să  își automatizeze procesele de resurse umane necesare prelucrării de documente și adeverințe prin urmare putem spune că platforma se adresează unui grup țintă oricare societate comercială indiferent de numărul de angajați.
+  </p>
+  {%endif%}
+
+{% endblock content %}

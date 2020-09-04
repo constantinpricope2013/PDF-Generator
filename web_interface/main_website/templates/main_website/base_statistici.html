@@ -1,0 +1,10 @@
+{% extends "main_website/base.html" %}
+{% block statistici %}
+  <p class='text-muted'>Statistici la nivel global.
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-light">Numa solicitari exportate: {{ statistici.number_of_documents }}</li>
+      <li class="list-group-item list-group-item-light">Numar companii inregistrate: {{ statistici.number_of_users }}</li>
+      <li class="list-group-item list-group-item-light">Numar template-uri adeverinte: {{ statistici.number_of_templates }}</li>
+    </ul>
+  </p>
+{% endblock statistici %}

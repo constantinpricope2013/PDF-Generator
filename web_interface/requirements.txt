@@ -1,2 +1,11 @@
 django==3.0.5
 django-crispy-forms=1.9.2
+Pillow=6.2.2
+docx=0.2.4
+lxml=4.5.2
+MarkupSafe=1.1.1
+docxtpl=0.10.0
+jinja2=2.11.2
+lxml=4.5.2
+python-docx=0.8.10
+six=1.15.0
