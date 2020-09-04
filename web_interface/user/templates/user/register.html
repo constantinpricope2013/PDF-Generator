@@ -1,0 +1,21 @@
+{% extends "adeverinte/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Creaza un nou cont</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Creeaza cont</button>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Am deja un cont <a class="ml-2" href="{% url 'login' %}">Conecteaza-te</a>
+            </small>
+        </div>
+    </div>
+{% endblock content %}
