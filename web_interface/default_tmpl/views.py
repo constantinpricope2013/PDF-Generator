@@ -1,9 +1,12 @@
 from django.shortcuts import render
+from django.conf import settings
 from .forms import DeafaultTemplateForm
 from .models import Default_Templates
+from io import BytesIO
 
-#from templated_docs import fill_template
-#from templated_docs.http import FileResponse
+from django.http import HttpResponse
+#from docx.shared import Cm
+from docxtpl import DocxTemplate, InlineImage
 
 #Change path to parent directory for aneasier acces to files
 import os,sys,inspect
@@ -19,6 +22,7 @@ def default_tmpl_home(request):
     default_tmpl = Default_Templates.objects.all()
 
     if request.method == 'POST':
+        response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
         form = DeafaultTemplateForm(data=request.POST)
         if form.is_valid():
             doctype = form.cleaned_data['format']
@@ -29,7 +33,30 @@ def default_tmpl_home(request):
             employee = Employees.objects.get(pk=employee_id)
             default_tmpl = Default_Templates.objects.get(pk=default_tmpl_id)
 
-            #filename = fill_template(default_tmpl_id.template_path, employee, output_format=doctype)
+            context_data = {
+                'employee': employee,
+            }
+
+            docx_title = 'adeverinta_' + employee.last_name + '_' + employee.first_name + '.docx'
+
+            template = DocxTemplate(settings.BASE_DIR + default_tmpl.template_path)
+
+            template.render(context_data)
+
+            #template.save('adeverinta_angajat-generat.docx')
+            #response.write(template)
+            #return response
+            f = BytesIO()
+            template.save(f)
+            length = f.tell()
+            f.seek(0)
+            response = HttpResponse(
+                f.getvalue(),
+                content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            )
+            response['Content-Disposition'] = 'attachment; filename=' + docx_title
+            response['Content-Length'] = length
+            return response
     else:
         form = DeafaultTemplateForm()
 
