@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'default_tmpl.apps.DefaultTmplConfig',
     'employee.apps.EmployeeConfig',
     'main_website.apps.MainWebsiteConfig',
     'statistici.apps.StatisticiConfig',

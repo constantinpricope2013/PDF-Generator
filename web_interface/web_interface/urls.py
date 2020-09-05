@@ -34,6 +34,7 @@ urlpatterns = [
     path('adeverinte/', include('adeverinte.urls')),
     path('about/', main_view.about, name='about'),
     path('employees/', include(('employee.urls', 'employees'), namespace='employees')),
+    path('default_tmpl/', include(('default_tmpl.urls', 'default_tmpl'), namespace='default_tmpl')),
 ]
 
 if settings.DEBUG:
