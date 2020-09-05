@@ -55,7 +55,7 @@
                   <a class="nav-item nav-link" href="{% url 'home' %}">Acasa</a>
                 {% endif %}
                   {% if user.is_authenticated %}
-                      <a class="nav-item nav-link" href="{% url 'employee-home' %}">Administrare conturi</a>
+                      <a class="nav-item nav-link" href="{% url 'employees:all' %}">Administrare conturi</a>
                       <a class="nav-item nav-link" href="{% url 'home' %}">Administrare template</a>
                       <a class="nav-item nav-link" href="{% url 'home' %}">Mesaje useri</a>
                       <a class="nav-item nav-link" href="{% url 'home' %}">Setari Cont</a>
