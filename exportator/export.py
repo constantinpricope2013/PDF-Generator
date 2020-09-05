@@ -1,13 +1,13 @@
-from io import StringIO
+from io import BytesIO
 #from docx.shared import Cm
 from docxtpl import DocxTemplate, InlineImage
 
-def from_template(template):
-    target_file = StringIO()
+def from_template(template_string, output_string):
+ #   target_file = BytesIO()
 
-    template = DocxTemplate(template)
+    template = DocxTemplate(template_string)
     context = {
-    	employee:
+    	'employee':
     	{
     		'first_name':'ghita',
     		'second_name':'zidaru',
@@ -23,14 +23,13 @@ def from_template(template):
     #sign = InlineImage(template, signature, img_size)
     #context['signature'] = sign  # adds the InlineImage object to the context
 
-    target_file = StringIO()
+#    target_file = BytesIO()
     template.render(context)
-    template.save(target_file)
+    template.save(output_string)
 
-    return target_file
+#    return target_file
 
 import os
-print(os.path.abspath('Model-adeverinta-angajator.docx'))
+print(os.path.abspath('adeverinta_angajat.docx'))
 
-
-from_template('Model-adeverinta-angajator.docx')
+from_template('adeverinta_angajat.docx', 'adeverinta_angajat-generat.docx')

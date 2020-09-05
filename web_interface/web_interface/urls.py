@@ -19,7 +19,7 @@ from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
-from adeverinte import views
+from employee import views as employee_views
 from user import views as user_view
 from main_website import views as main_view
 
@@ -33,6 +33,7 @@ urlpatterns = [
     path('logout/',auth_views.LogoutView.as_view(template_name='user/logout.html'), name='logout'),
     path('adeverinte/', include('adeverinte.urls')),
     path('about/', main_view.about, name='about'),
+    path('employee/', include('employee.urls')),
 ]
 
 if settings.DEBUG:

@@ -10,7 +10,9 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="{% static 'adeverinte/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'main_website/main.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="{% static 'main_website/dropdown-btn.js' %}"></script>
 
 	{% if title %}
 		<title>{{ title }}</title>>
@@ -53,10 +55,10 @@
                   <a class="nav-item nav-link" href="{% url 'home' %}">Acasa</a>
                 {% endif %}
                   {% if user.is_authenticated %}
-                      <a class="nav-item nav-link" href="{% url 'adeverinte-home' %}">Administrare conturi</a>
-                      <a class="nav-item nav-link" href="{% url 'adeverinte-home' %}">Administrare template</a>
-                      <a class="nav-item nav-link" href="{% url 'adeverinte-home' %}">Mesaje useri</a>
-                      <a class="nav-item nav-link" href="{% url 'adeverinte-home' %}">Setari Cont</a>
+                      <a class="nav-item nav-link" href="{% url 'employee-home' %}">Administrare conturi</a>
+                      <a class="nav-item nav-link" href="{% url 'home' %}">Administrare template</a>
+                      <a class="nav-item nav-link" href="{% url 'home' %}">Mesaje useri</a>
+                      <a class="nav-item nav-link" href="{% url 'home' %}">Setari Cont</a>
                   {% endif %}
                   <a class="nav-item nav-link" href="{% url 'about' %}">Despre Adeverinte</a>
               </div>
