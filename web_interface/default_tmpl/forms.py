@@ -14,7 +14,6 @@ from employee.models import Employees
 FORMAT_CHOICES = (
     ('pdf', 'PDF'),
     ('docx', 'MS Word'),
-    ('html', 'HTML'),
 )
 
 class DeafaultTemplateForm(forms.ModelForm):

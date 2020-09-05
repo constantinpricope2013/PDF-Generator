@@ -3,6 +3,9 @@ from django.conf import settings
 from .forms import DeafaultTemplateForm
 from .models import Default_Templates
 from io import BytesIO
+import sys
+import subprocess
+import re
 
 from django.http import HttpResponse
 #from docx.shared import Cm
@@ -16,13 +19,24 @@ sys.path.insert(0,parentdir)
 
 from employee.models import Employees
 
+#Convert from docx to pdf
+def convert_to(folder, source, timeout=None):
+    args = ['libreoffice', '--headless', '--convert-to', 'pdf', '--outdir', folder, source]
+
+    process = subprocess.run(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=timeout)
+    filename = re.search('-> (.*?) using filter', process.stdout.decode())
+
+    if filename is None:
+        raise LibreOfficeError(process.stdout.decode())
+    else:
+        return filename.group(1)
+
 
 def default_tmpl_home(request):
     employee = Employees.objects.all()
     default_tmpl = Default_Templates.objects.all()
 
     if request.method == 'POST':
-        response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
         form = DeafaultTemplateForm(data=request.POST)
         if form.is_valid():
             doctype = form.cleaned_data['format']
@@ -38,25 +52,43 @@ def default_tmpl_home(request):
             }
 
             docx_title = 'adeverinta_' + employee.last_name + '_' + employee.first_name + '.docx'
+            pdf_title = 'adeverinta_' + employee.last_name + '_' + employee.first_name + '.pdf'
 
-            template = DocxTemplate(settings.BASE_DIR + default_tmpl.template_path)
+            template = DocxTemplate(settings.BASE_DIR +  '/default_tmpl/templates/default_tmpl/' + default_tmpl.template_path)
 
             template.render(context_data)
 
-            #template.save('adeverinta_angajat-generat.docx')
-            #response.write(template)
-            #return response
-            f = BytesIO()
-            template.save(f)
-            length = f.tell()
-            f.seek(0)
-            response = HttpResponse(
-                f.getvalue(),
-                content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-            )
-            response['Content-Disposition'] = 'attachment; filename=' + docx_title
-            response['Content-Length'] = length
-            return response
+            template.save('document-generat.docx')
+
+            if doctype == 'docx':
+                #response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                f = BytesIO()
+                template.save(f)
+                length = f.tell()
+                f.seek(0)
+                response = HttpResponse(
+                    f.getvalue(),
+                    content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                )
+                response['Content-Disposition'] = 'attachment; filename=' + docx_title
+                response['Content-Length'] = length
+                return response
+            if doctype == 'pdf':
+                convert_to(settings.BASE_DIR + '/default_tmpl/templates/default_tmpl/','document-generat.docx')
+
+                file = open(settings.BASE_DIR + '/default_tmpl/templates/default_tmpl/' + 'document-generat.pdf', "rb")
+                f = BytesIO(file.read())
+
+                length = f.tell()
+                f.seek(0)
+
+                response = HttpResponse(
+                    f.getvalue(),
+                    content_type='application/pdf'
+                )
+                response['Content-Disposition'] = 'attachment; filename=' + pdf_title
+                #response['Content-Length'] = length
+                return response
     else:
         form = DeafaultTemplateForm()
 
